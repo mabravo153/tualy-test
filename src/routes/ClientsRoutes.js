@@ -12,6 +12,30 @@ class ClientsRoutes {
                 msg: "correct customers",
             });
         });
+        this.routes.get("/:id", (req, res) => {
+            res.json({
+                code: 200,
+                msg: "correct customers",
+            });
+        });
+        this.routes.post("/", (req, res) => {
+            res.json({
+                code: 200,
+                msg: "correct customers",
+            });
+        });
+        this.routes.put("/", (req, res) => {
+            res.json({
+                code: 200,
+                msg: "correct customers",
+            });
+        });
+        this.routes.delete("/", (req, res) => {
+            res.json({
+                code: 200,
+                msg: "correct customers",
+            });
+        });
         return this.routes;
     }
 }

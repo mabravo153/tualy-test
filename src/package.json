@@ -14,7 +14,6 @@
     "connect-redis": "^6.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-session": "^1.17.2",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "redis": "^3.1.2",
@@ -26,3 +25,4 @@
     "nodemon": "^2.0.12"
   }
 }
+ 

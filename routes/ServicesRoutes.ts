@@ -11,6 +11,22 @@ class ServicesRoutes {
       });
     });
 
+    this.routes.post("/", (req: Request, res: Response) => {
+      res.json({
+        code: 200,
+        msg: "correct services update",
+      });
+    });
+
+    this.routes.put("/", (req: Request, res: Response) => {
+      res.json({
+        code: 200,
+        msg: "correct services update",
+      });
+    });
+
+    
+
 
     return this.routes;
   }

@@ -18,11 +18,13 @@ const cors_1 = __importDefault(require("cors"));
 const typeorm_1 = require("typeorm");
 const ClientsRoutes_1 = __importDefault(require("../routes/ClientsRoutes"));
 const ServicesRoutes_1 = __importDefault(require("../routes/ServicesRoutes"));
+const ProductsRoutes_1 = __importDefault(require("../routes/ProductsRoutes"));
 class Server {
     constructor() {
         this.Routes = {
             clients: "/api/v1/clients",
             services: "/api/v1/services",
+            products: "/api/v1/products",
         };
         this.port = process.env.PORT || "9000";
         //inicializacion del servidor
@@ -39,6 +41,7 @@ class Server {
     routes() {
         this.app.use(this.Routes.clients, new ClientsRoutes_1.default().clientsroutes());
         this.app.use(this.Routes.services, new ServicesRoutes_1.default().servicesroutes());
+        this.app.use(this.Routes.products, new ProductsRoutes_1.default().productsroutes());
     }
     middlewares() {
         this.app.use(cors_1.default());

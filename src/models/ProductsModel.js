@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const class_validator_1 = require("class-validator");
 const typeorm_1 = require("typeorm");
 let Product = class Product {
 };
@@ -22,14 +23,20 @@ __decorate([
 ], Product.prototype, "code", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsNotEmpty(),
+    class_validator_1.IsString(),
     __metadata("design:type", String)
 ], Product.prototype, "name", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsNotEmpty(),
+    class_validator_1.IsString(),
     __metadata("design:type", String)
 ], Product.prototype, "description", void 0);
 __decorate([
-    typeorm_1.Column(),
+    typeorm_1.Column({ type: "decimal" }),
+    class_validator_1.IsNotEmpty(),
+    class_validator_1.IsNumber(),
     __metadata("design:type", Number)
 ], Product.prototype, "price", void 0);
 __decorate([

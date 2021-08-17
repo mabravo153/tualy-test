@@ -8,8 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const class_validator_1 = require("class-validator");
 const typeorm_1 = require("typeorm");
+const ProductsModel_1 = __importDefault(require("./ProductsModel"));
 let Service = class Service {
 };
 __decorate([
@@ -18,14 +23,17 @@ __decorate([
 ], Service.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsNotEmpty(),
     __metadata("design:type", Number)
 ], Service.prototype, "user_id", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsNotEmpty(),
     __metadata("design:type", Date)
 ], Service.prototype, "date_of_service", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsNotEmpty(),
     __metadata("design:type", Number)
 ], Service.prototype, "service_value", void 0);
 __decorate([
@@ -36,6 +44,11 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], Service.prototype, "status", void 0);
+__decorate([
+    typeorm_1.ManyToMany(() => ProductsModel_1.default),
+    typeorm_1.JoinTable(),
+    __metadata("design:type", Array)
+], Service.prototype, "products", void 0);
 Service = __decorate([
     typeorm_1.Entity()
 ], Service);

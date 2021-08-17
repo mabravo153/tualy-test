@@ -10,36 +10,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const class_validator_1 = require("class-validator");
 let Client = class Client {
 };
 __decorate([
     typeorm_1.PrimaryColumn(),
+    class_validator_1.IsNotEmpty(),
+    class_validator_1.IsInt(),
     __metadata("design:type", Number)
 ], Client.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsNotEmpty(),
+    class_validator_1.IsString(),
     __metadata("design:type", String)
 ], Client.prototype, "first_name", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsNotEmpty(),
+    class_validator_1.IsString(),
     __metadata("design:type", String)
 ], Client.prototype, "last_name", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsEmail(),
     __metadata("design:type", String)
 ], Client.prototype, "email", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsNotEmpty(),
+    class_validator_1.IsString(),
     __metadata("design:type", String)
 ], Client.prototype, "address", void 0);
 __decorate([
     typeorm_1.Column(),
+    class_validator_1.IsNotEmpty(),
     __metadata("design:type", String)
 ], Client.prototype, "phone", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Boolean)
 ], Client.prototype, "isActive", void 0);
+__decorate([
+    typeorm_1.DeleteDateColumn(),
+    __metadata("design:type", Date)
+], Client.prototype, "deletedAt", void 0);
 Client = __decorate([
     typeorm_1.Entity()
 ], Client);

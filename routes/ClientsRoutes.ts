@@ -1,43 +1,19 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import ClientsControllers from "../controllers/ClientsControllers";
 
 class ClientsRoutes {
   private routes: Router = Router();
 
   clientsroutes(): Router {
-    this.routes.get("/", (req: Request, res: Response) => {
-      res.json({
-        code: 200,
-        msg: "correct customers",
-      });
-    });
+    this.routes.get("/", ClientsControllers.index);
 
-    this.routes.get("/:id", (req: Request, res: Response) => {
-      res.json({
-        code: 200,
-        msg: "correct customers",
-      });
-    });
+    this.routes.get("/:id", ClientsControllers.show);
 
-    this.routes.post("/", (req: Request, res: Response) => {
-      res.json({
-        code: 200,
-        msg: "correct customers",
-      });
-    });
+    this.routes.post("/", ClientsControllers.store);
 
-    this.routes.put("/", (req: Request, res: Response) => {
-      res.json({
-        code: 200,
-        msg: "correct customers",
-      });
-    });
+    this.routes.put("/:id", ClientsControllers.edit);
 
-    this.routes.delete("/", (req: Request, res: Response) => {
-      res.json({
-        code: 200,
-        msg: "correct customers",
-      });
-    });
+    this.routes.delete("/:id", ClientsControllers.destoy);
 
     return this.routes;
   }

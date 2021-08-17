@@ -1,3 +1,4 @@
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
@@ -9,12 +10,18 @@ class Product {
   code: string;
 
   @Column()
+  @IsNotEmpty()
+  @IsString()
   name: string;
 
   @Column()
+  @IsNotEmpty()
+  @IsString()
   description: string;
 
-  @Column()
+  @Column({ type: "decimal" })
+  @IsNotEmpty()
+  @IsNumber()
   price: number;
 
   @Column()

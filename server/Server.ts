@@ -4,6 +4,7 @@ import cors from "cors";
 import { createConnection } from "typeorm";
 import ClientsRoutes from "../routes/ClientsRoutes";
 import ServicesRoutes from "../routes/ServicesRoutes";
+import ProductsRoutes from "../routes/ProductsRoutes";
 
 class Server {
   private app: express.Application;
@@ -12,6 +13,7 @@ class Server {
   private Routes: { [key: string]: string } = {
     clients: "/api/v1/clients",
     services: "/api/v1/services",
+    products: "/api/v1/products",
   };
 
   constructor() {
@@ -36,6 +38,7 @@ class Server {
   routes(): void {
     this.app.use(this.Routes.clients, new ClientsRoutes().clientsroutes());
     this.app.use(this.Routes.services, new ServicesRoutes().servicesroutes());
+    this.app.use(this.Routes.products, new ProductsRoutes().productsroutes());
   }
 
   middlewares(): void {

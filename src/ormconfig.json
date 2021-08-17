@@ -5,6 +5,7 @@
    "username": "mabravo153",
    "password": "Barranquilla1.",
    "database": "postgres_tualy",
+   "synchronize": true,
    "entities": [
       "models/**/*.js"
    ]

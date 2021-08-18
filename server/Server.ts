@@ -2,6 +2,7 @@ import "reflect-metadata";
 import express from "express";
 import cors from "cors";
 import { createConnection } from "typeorm";
+import redis from "../helpers/ClientRedis";
 import ClientsRoutes from "../routes/ClientsRoutes";
 import ServicesRoutes from "../routes/ServicesRoutes";
 import ProductsRoutes from "../routes/ProductsRoutes";
@@ -27,6 +28,8 @@ class Server {
     this.routes();
 
     this.dbConnection();
+
+    this.redis();
   }
 
   run(): void {
@@ -45,6 +48,14 @@ class Server {
     this.app.use(cors());
 
     this.app.use(express.json());
+  }
+
+  redis() {
+    let client = new redis().getclient();
+
+    client.on("error", (error) => {
+      console.log(error);
+    });
   }
 
   async dbConnection(): Promise<void> {

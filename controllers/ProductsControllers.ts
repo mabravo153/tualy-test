@@ -63,6 +63,39 @@ class ProductsControllers {
       });
     }
   }
+
+
+  static async show(req: Request, res: Response): Promise<Response> {
+    try {
+      const Products = await getRepository(Product).find(
+        {
+        order: {
+          id: "DESC",
+        },
+        take: 1,
+      }
+      );
+
+      if (Products.length) {
+        return res.status(200).json({
+          code: 200,
+          msg: Products,
+        });
+      } else {
+        return res.status(404).json({
+          code: 404,
+          msg: "Products not found",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        code: 200,
+        msg: error,
+      });
+    }
+  }
+  
 }
 
 export default ProductsControllers;

@@ -77,6 +77,37 @@ class ProductsControllers {
             }
         });
     }
+    static show(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const Products = yield typeorm_1.getRepository(ProductsModel_1.default).find({
+                    order: {
+                        id: "DESC",
+                    },
+                    take: 1,
+                });
+                if (Products.length) {
+                    return res.status(200).json({
+                        code: 200,
+                        msg: Products,
+                    });
+                }
+                else {
+                    return res.status(404).json({
+                        code: 404,
+                        msg: "Products not found",
+                    });
+                }
+            }
+            catch (error) {
+                console.log(error);
+                return res.status(500).json({
+                    code: 200,
+                    msg: error,
+                });
+            }
+        });
+    }
 }
 exports.default = ProductsControllers;
 //# sourceMappingURL=ProductsControllers.js.map

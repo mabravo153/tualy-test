@@ -1,32 +1,15 @@
 import { Router, Request, Response } from "express";
+import ServicesControllers from "../controllers/ServicesControllers";
 
 class ServicesRoutes {
   private routes: Router = Router();
 
   servicesroutes(): Router {
-    this.routes.get("/", (req: Request, res: Response) => {
-      res.json({
-        code: 200,
-        msg: "correct services update",
-      });
-    });
+    this.routes.get("/", ServicesControllers.index);
 
-    this.routes.post("/", (req: Request, res: Response) => {
-      res.json({
-        code: 200,
-        msg: "correct services update",
-      });
-    });
+    this.routes.post("/", ServicesControllers.store);
 
-    this.routes.put("/", (req: Request, res: Response) => {
-      res.json({
-        code: 200,
-        msg: "correct services update",
-      });
-    });
-
-    
-
+    this.routes.put("/", new ServicesControllers().edit);
 
     return this.routes;
   }

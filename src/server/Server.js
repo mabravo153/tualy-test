@@ -16,6 +16,7 @@ require("reflect-metadata");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const typeorm_1 = require("typeorm");
+const ClientRedis_1 = __importDefault(require("../helpers/ClientRedis"));
 const ClientsRoutes_1 = __importDefault(require("../routes/ClientsRoutes"));
 const ServicesRoutes_1 = __importDefault(require("../routes/ServicesRoutes"));
 const ProductsRoutes_1 = __importDefault(require("../routes/ProductsRoutes"));
@@ -32,6 +33,7 @@ class Server {
         this.middlewares();
         this.routes();
         this.dbConnection();
+        this.redis();
     }
     run() {
         this.app.listen(this.port, () => {
@@ -46,6 +48,12 @@ class Server {
     middlewares() {
         this.app.use(cors_1.default());
         this.app.use(express_1.default.json());
+    }
+    redis() {
+        let client = new ClientRedis_1.default().getclient();
+        client.on("error", (error) => {
+            console.log(error);
+        });
     }
     dbConnection() {
         return __awaiter(this, void 0, void 0, function* () {

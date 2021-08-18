@@ -1,5 +1,12 @@
-import { Entity, Column, PrimaryColumn, DeleteDateColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  DeleteDateColumn,
+  OneToMany,
+} from "typeorm";
 import { IsEmail, IsInt, IsNotEmpty, IsString } from "class-validator";
+import Service from "./ServicesModel";
 
 @Entity()
 class Client {
@@ -33,6 +40,9 @@ class Client {
 
   @Column()
   isActive: boolean;
+
+  @OneToMany(() => Service, (service) => service.client)
+  services: Service[];
 
   @DeleteDateColumn()
   deletedAt?: Date;

@@ -8,9 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
+const ServicesModel_1 = __importDefault(require("./ServicesModel"));
 let Client = class Client {
 };
 __decorate([
@@ -51,6 +55,10 @@ __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Boolean)
 ], Client.prototype, "isActive", void 0);
+__decorate([
+    typeorm_1.OneToMany(() => ServicesModel_1.default, (service) => service.client),
+    __metadata("design:type", Array)
+], Client.prototype, "services", void 0);
 __decorate([
     typeorm_1.DeleteDateColumn(),
     __metadata("design:type", Date)

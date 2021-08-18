@@ -6,6 +6,7 @@ class ProductsRoutes {
 
   productsroutes(): Router {
     this.routes.get("/", ProductsControllers.index);
+    this.routes.get("/last", ProductsControllers.show);
 
     this.routes.post("/", ProductsControllers.store);
 

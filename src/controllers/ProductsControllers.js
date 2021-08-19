@@ -16,6 +16,7 @@ const class_validator_1 = require("class-validator");
 const typeorm_1 = require("typeorm");
 const uuid_1 = require("uuid");
 const ProductsModel_1 = __importDefault(require("../models/ProductsModel"));
+const Mail_1 = __importDefault(require("../helpers/Mail"));
 class ProductsControllers {
     static index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -36,6 +37,10 @@ class ProductsControllers {
             }
             catch (error) {
                 console.log(error);
+                let mail = new Mail_1.default();
+                mail.setEmailQueue(JSON.stringify(error)).then(() => {
+                    mail.processSendEmail();
+                });
                 return res.status(500).json({
                     code: 200,
                     msg: error,
@@ -70,6 +75,10 @@ class ProductsControllers {
             }
             catch (error) {
                 console.log(error);
+                let mail = new Mail_1.default();
+                mail.setEmailQueue(JSON.stringify(error)).then(() => {
+                    mail.processSendEmail();
+                });
                 return res.status(500).json({
                     code: 500,
                     msg: error,
@@ -101,11 +110,32 @@ class ProductsControllers {
             }
             catch (error) {
                 console.log(error);
+                let mail = new Mail_1.default();
+                mail.setEmailQueue(JSON.stringify(error)).then(() => {
+                    mail.processSendEmail();
+                });
                 return res.status(500).json({
                     code: 200,
                     msg: error,
                 });
             }
+        });
+    }
+    static email(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let mail = new Mail_1.default();
+            mail
+                .setEmailQueue(JSON.stringify(req.body))
+                .then(() => {
+                mail.processSendEmail();
+            })
+                .catch(() => {
+                console.log("error al almacenar el email");
+            });
+            return res.status(200).json({
+                code: 200,
+                msg: " email ",
+            });
         });
     }
 }

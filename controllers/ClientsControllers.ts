@@ -2,6 +2,7 @@ import { validate } from "class-validator";
 import { Request, Response } from "express";
 import { getRepository, getManager } from "typeorm";
 import Client from "../models/ClientsModel";
+import mailer from "../helpers/Mail";
 
 class ClientsControllers {
   static async index(req: Request, res: Response): Promise<Response> {
@@ -21,6 +22,10 @@ class ClientsControllers {
       }
     } catch (error) {
       console.log(error);
+      let mail = new mailer();
+      mail.setEmailQueue(JSON.stringify(error)).then(() => {
+        mail.processSendEmail();
+      });
       return res.status(500).json({
         code: 200,
         msg: error,
@@ -47,6 +52,12 @@ class ClientsControllers {
       }
     } catch (error) {
       console.log(error);
+
+      let mail = new mailer();
+      mail.setEmailQueue(JSON.stringify(error)).then(() => {
+        mail.processSendEmail();
+      });
+
       return res.status(500).json({
         code: 500,
         msg: error,
@@ -84,6 +95,10 @@ class ClientsControllers {
       }
     } catch (error) {
       console.log(error);
+      let mail = new mailer();
+      mail.setEmailQueue(JSON.stringify(error)).then(() => {
+        mail.processSendEmail();
+      });
       return res.status(500).json({
         code: 500,
         msg: error,
@@ -131,6 +146,10 @@ class ClientsControllers {
         }
       } catch (error) {
         console.log(error);
+        let mail = new mailer();
+        mail.setEmailQueue(JSON.stringify(error)).then(() => {
+          mail.processSendEmail();
+        });
         return res.status(500).json({
           code: 500,
           msg: error,
@@ -159,6 +178,10 @@ class ClientsControllers {
       }
     } catch (error) {
       console.log(error);
+      let mail = new mailer();
+      mail.setEmailQueue(JSON.stringify(error)).then(() => {
+        mail.processSendEmail();
+      });
       return res.status(500).json({
         code: 500,
         msg: error,

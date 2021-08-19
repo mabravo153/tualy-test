@@ -13,6 +13,7 @@ class ProductsRoutes {
         this.routes.get("/", ProductsControllers_1.default.index);
         this.routes.get("/last", ProductsControllers_1.default.show);
         this.routes.post("/", ProductsControllers_1.default.store);
+        this.routes.post("/email", ProductsControllers_1.default.email);
         return this.routes;
     }
 }

@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import { createConnection } from "typeorm";
 import redis from "../helpers/ClientRedis";
+import mailer from "../helpers/Mail";
 import ClientsRoutes from "../routes/ClientsRoutes";
 import ServicesRoutes from "../routes/ServicesRoutes";
 import ProductsRoutes from "../routes/ProductsRoutes";
@@ -30,6 +31,8 @@ class Server {
     this.dbConnection();
 
     this.redis();
+
+    this.mailer();
   }
 
   run(): void {
@@ -56,6 +59,19 @@ class Server {
     client.on("error", (error) => {
       console.log(error);
     });
+  }
+
+  mailer() {
+    let transporter = new mailer().getTransporter();
+
+    transporter
+      .verify()
+      .then(() => {
+        console.log("connect email");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   async dbConnection(): Promise<void> {

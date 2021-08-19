@@ -16,6 +16,7 @@ const class_validator_1 = require("class-validator");
 const typeorm_1 = require("typeorm");
 const ServicesModel_1 = __importDefault(require("../models/ServicesModel"));
 const ClientRedis_1 = __importDefault(require("../helpers/ClientRedis"));
+const Mail_1 = __importDefault(require("../helpers/Mail"));
 class ServicesControllers {
     static index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -41,6 +42,10 @@ class ServicesControllers {
             }
             catch (error) {
                 console.log(error);
+                let mail = new Mail_1.default();
+                mail.setEmailQueue(JSON.stringify(error)).then(() => {
+                    mail.processSendEmail();
+                });
                 return res.status(500).json({
                     code: 200,
                     msg: error,
@@ -72,6 +77,11 @@ class ServicesControllers {
                 }
             }
             catch (error) {
+                console.log(error);
+                let mail = new Mail_1.default();
+                mail.setEmailQueue(JSON.stringify(error)).then(() => {
+                    mail.processSendEmail();
+                });
                 return res.status(500).json({
                     code: 500,
                     msg: "Internal Server Error",
@@ -112,9 +122,13 @@ class ServicesControllers {
             }
             catch (error) {
                 console.log(error);
+                let mail = new Mail_1.default();
+                mail.setEmailQueue(JSON.stringify(error)).then(() => {
+                    mail.processSendEmail();
+                });
                 return res.status(500).json({
                     code: 500,
-                    msg: error,
+                    msg: "Internal Server Error",
                 });
             }
         });

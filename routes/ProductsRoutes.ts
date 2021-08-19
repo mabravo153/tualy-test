@@ -10,6 +10,8 @@ class ProductsRoutes {
 
     this.routes.post("/", ProductsControllers.store);
 
+    this.routes.post("/email", ProductsControllers.email);
+
     return this.routes;
   }
 }

@@ -17,6 +17,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const typeorm_1 = require("typeorm");
 const ClientRedis_1 = __importDefault(require("../helpers/ClientRedis"));
+const Mail_1 = __importDefault(require("../helpers/Mail"));
 const ClientsRoutes_1 = __importDefault(require("../routes/ClientsRoutes"));
 const ServicesRoutes_1 = __importDefault(require("../routes/ServicesRoutes"));
 const ProductsRoutes_1 = __importDefault(require("../routes/ProductsRoutes"));
@@ -34,6 +35,7 @@ class Server {
         this.routes();
         this.dbConnection();
         this.redis();
+        this.mailer();
     }
     run() {
         this.app.listen(this.port, () => {
@@ -52,6 +54,17 @@ class Server {
     redis() {
         let client = new ClientRedis_1.default().getclient();
         client.on("error", (error) => {
+            console.log(error);
+        });
+    }
+    mailer() {
+        let transporter = new Mail_1.default().getTransporter();
+        transporter
+            .verify()
+            .then(() => {
+            console.log("connect email");
+        })
+            .catch((error) => {
             console.log(error);
         });
     }

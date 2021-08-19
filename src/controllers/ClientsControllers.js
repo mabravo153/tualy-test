@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const class_validator_1 = require("class-validator");
 const typeorm_1 = require("typeorm");
 const ClientsModel_1 = __importDefault(require("../models/ClientsModel"));
+const Mail_1 = __importDefault(require("../helpers/Mail"));
 class ClientsControllers {
     static index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -35,6 +36,10 @@ class ClientsControllers {
             }
             catch (error) {
                 console.log(error);
+                let mail = new Mail_1.default();
+                mail.setEmailQueue(JSON.stringify(error)).then(() => {
+                    mail.processSendEmail();
+                });
                 return res.status(500).json({
                     code: 200,
                     msg: error,
@@ -62,6 +67,10 @@ class ClientsControllers {
             }
             catch (error) {
                 console.log(error);
+                let mail = new Mail_1.default();
+                mail.setEmailQueue(JSON.stringify(error)).then(() => {
+                    mail.processSendEmail();
+                });
                 return res.status(500).json({
                     code: 500,
                     msg: error,
@@ -98,6 +107,10 @@ class ClientsControllers {
             }
             catch (error) {
                 console.log(error);
+                let mail = new Mail_1.default();
+                mail.setEmailQueue(JSON.stringify(error)).then(() => {
+                    mail.processSendEmail();
+                });
                 return res.status(500).json({
                     code: 500,
                     msg: error,
@@ -143,6 +156,10 @@ class ClientsControllers {
                 }
                 catch (error) {
                     console.log(error);
+                    let mail = new Mail_1.default();
+                    mail.setEmailQueue(JSON.stringify(error)).then(() => {
+                        mail.processSendEmail();
+                    });
                     return res.status(500).json({
                         code: 500,
                         msg: error,
@@ -172,6 +189,10 @@ class ClientsControllers {
             }
             catch (error) {
                 console.log(error);
+                let mail = new Mail_1.default();
+                mail.setEmailQueue(JSON.stringify(error)).then(() => {
+                    mail.processSendEmail();
+                });
                 return res.status(500).json({
                     code: 500,
                     msg: error,

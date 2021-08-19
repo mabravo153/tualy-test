@@ -33,7 +33,6 @@ class ClientRedis {
             },
         };
         this.paymentQueue = new bee_queue_1.default("payment", this.options);
-        this.emailQueue = new bee_queue_1.default("email", this.options);
     }
     getclient() {
         return this.client;

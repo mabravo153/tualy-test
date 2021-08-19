@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { getRepository, getManager } from "typeorm";
 import { v4 as uuidv4 } from "uuid";
 import Product from "../models/ProductsModel";
+import mailer from "../helpers/Mail";
 
 class ProductsControllers {
   static async index(req: Request, res: Response): Promise<Response> {
@@ -22,6 +23,11 @@ class ProductsControllers {
       }
     } catch (error) {
       console.log(error);
+      let mail = new mailer();
+      mail.setEmailQueue(JSON.stringify(error)).then(() => {
+        mail.processSendEmail();
+      });
+
       return res.status(500).json({
         code: 200,
         msg: error,
@@ -57,6 +63,10 @@ class ProductsControllers {
       }
     } catch (error) {
       console.log(error);
+      let mail = new mailer();
+      mail.setEmailQueue(JSON.stringify(error)).then(() => {
+        mail.processSendEmail();
+      });
       return res.status(500).json({
         code: 500,
         msg: error,
@@ -64,17 +74,14 @@ class ProductsControllers {
     }
   }
 
-
   static async show(req: Request, res: Response): Promise<Response> {
     try {
-      const Products = await getRepository(Product).find(
-        {
+      const Products = await getRepository(Product).find({
         order: {
           id: "DESC",
         },
         take: 1,
-      }
-      );
+      });
 
       if (Products.length) {
         return res.status(200).json({
@@ -89,13 +96,34 @@ class ProductsControllers {
       }
     } catch (error) {
       console.log(error);
+      let mail = new mailer();
+      mail.setEmailQueue(JSON.stringify(error)).then(() => {
+        mail.processSendEmail();
+      });
       return res.status(500).json({
         code: 200,
         msg: error,
       });
     }
   }
-  
+
+  static async email(req: Request, res: Response): Promise<Response> {
+    let mail = new mailer();
+
+    mail
+      .setEmailQueue(JSON.stringify(req.body))
+      .then(() => {
+        mail.processSendEmail();
+      })
+      .catch(() => {
+        console.log("error al almacenar el email");
+      });
+
+    return res.status(200).json({
+      code: 200,
+      msg: " email ",
+    });
+  }
 }
 
 export default ProductsControllers;

@@ -25,7 +25,6 @@ class ClientRedis {
   }
 
   private paymentQueue = new beeQueue("payment", this.options);
-  private emailQueue = new beeQueue("email", this.options);
 
   setItemPayment(job: string) {
     return this.paymentQueue.createJob(job).save();

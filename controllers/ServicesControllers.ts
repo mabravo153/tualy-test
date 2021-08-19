@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import Service from "../models/ServicesModel";
 import redis from "../helpers/ClientRedis";
+import Mail from "../helpers/Mail";
 
 class ServicesControllers {
   static async index(req: Request, res: Response): Promise<Response> {
@@ -27,6 +28,10 @@ class ServicesControllers {
       }
     } catch (error) {
       console.log(error);
+      let mail = new Mail();
+      mail.setEmailQueue(JSON.stringify(error)).then(() => {
+        mail.processSendEmail();
+      });
       return res.status(500).json({
         code: 200,
         msg: error,
@@ -60,6 +65,11 @@ class ServicesControllers {
         });
       }
     } catch (error) {
+      console.log(error);
+      let mail = new Mail();
+      mail.setEmailQueue(JSON.stringify(error)).then(() => {
+        mail.processSendEmail();
+      });
       return res.status(500).json({
         code: 500,
         msg: "Internal Server Error",
@@ -69,6 +79,7 @@ class ServicesControllers {
 
   async edit(req: Request, res: Response): Promise<Response> {
     let { service_id, status } = req.body;
+
     try {
       let service = await getRepository(Service).find({
         where: {
@@ -102,9 +113,14 @@ class ServicesControllers {
       }
     } catch (error) {
       console.log(error);
+
+      let mail: Mail = new Mail();
+      mail.setEmailQueue(JSON.stringify(error)).then(() => {
+        mail.processSendEmail();
+      });
       return res.status(500).json({
         code: 500,
-        msg: error,
+        msg: "Internal Server Error",
       });
     }
   }
